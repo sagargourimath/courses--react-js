@@ -29,6 +29,10 @@ class App extends Component {
 
   setAlert = (alertMessage, type) => {
     this.setState({ alert: { msg: alertMessage, type } });
+
+    setTimeout(() => {
+      this.setState({ alert: null });
+    }, 3000);
   };
 
   render() {
@@ -43,7 +47,7 @@ class App extends Component {
             searchUsers={this.searchGitUsers}
             clearUsers={this.clearUsers}
             showClear={users.length > 0 ? true : false}
-            setAlert={this.setAlert}
+            setAlyert={this.setAlert}
           />
           <Users loading={loading} users={users} />
         </div>
