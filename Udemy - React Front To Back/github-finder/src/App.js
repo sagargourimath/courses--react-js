@@ -7,43 +7,37 @@ import Search from './components/users/Search';
 import Alert from './components/layout/Alert';
 import About from './components/pages/About';
 import './App.css';
+
 import GithubState from './context/github/GithubState';
+import AlertState from './context/alert/AlertState';
 
 const App = () => {
-  const [alert, setAlert] = useState(null);
-
-  const showAlert = (alertMessage, type) => {
-    setAlert({ msg: alertMessage, type });
-
-    setTimeout(() => {
-      setAlert(null);
-    }, 3000);
-  };
-
   return (
     <GithubState>
-      <Router>
-        <div className="App">
-          <Navbar title="GitHub Finder" icon="fab fa-github" />
-          <div className="container">
-            <Alert alert={alert} />
-            <Switch>
-              <Route
-                exact
-                path="/"
-                render={() => (
-                  <Fragment>
-                    <Search setAlert={showAlert} />
-                    <Users />
-                  </Fragment>
-                )}
-              />
-              <Route exact path="/about" component={About} />
-              <Route exact path="/user/:login" component={User} />
-            </Switch>
+      <AlertState>
+        <Router>
+          <div className="App">
+            <Navbar title="GitHub Finder" icon="fab fa-github" />
+            <div className="container">
+              <Alert />
+              <Switch>
+                <Route
+                  exact
+                  path="/"
+                  render={() => (
+                    <Fragment>
+                      <Search />
+                      <Users />
+                    </Fragment>
+                  )}
+                />
+                <Route exact path="/about" component={About} />
+                <Route exact path="/user/:login" component={User} />
+              </Switch>
+            </div>
           </div>
-        </div>
-      </Router>
+        </Router>
+      </AlertState>
     </GithubState>
   );
 };
