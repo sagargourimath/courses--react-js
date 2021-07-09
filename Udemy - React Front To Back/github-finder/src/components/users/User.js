@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 import Repos from '../repos/Repos';
 import GithubContext from '../../context/github/GithubContext';
 
-const User = ({ getUserRepos, repos, match }) => {
+const User = ({ match }) => {
   const githubContext = new useContext(GithubContext);
 
   useEffect(() => {
     githubContext.getUser(match.params.login);
-    getUserRepos(match.params.login);
+    githubContext.getUserRepos(match.params.login);
     // eslint-disable-next-line
   }, []);
 
@@ -95,14 +95,9 @@ const User = ({ getUserRepos, repos, match }) => {
         <div className="badge badge-light">Public Repos: {public_repos}</div>
         <div className="badge badge-dark">Public Gists: {public_gists}</div>
       </div>
-      <Repos repos={repos} />
+      <Repos repos={githubContext.repos} />
     </Fragment>
   );
-};
-
-User.propTypes = {
-  getUserRepos: PropTypes.func.isRequired,
-  repos: PropTypes.array.isRequired,
 };
 
 export default User;
